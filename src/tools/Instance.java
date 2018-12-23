@@ -3,6 +3,7 @@ package tools;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Instance {
@@ -62,6 +63,14 @@ public class Instance {
 		return facilities[facility].getOpenCost();
 	}
 	
+	public int[] getAllCapacity() {
+		int[] ret = new int[numOfFacility];
+		for (int i = 0; i < numOfFacility; i++) {
+			ret[i] = facilities[i].getCapacity();
+		}
+		return ret;
+	}
+	
 	public class Solution {
 		private int[] line;
 		private int cost;
@@ -70,8 +79,19 @@ public class Instance {
 		 public Solution() {
 			this.line = new int[Instance.this.numOfCustomer];
 			this.isDirty = false;
+			
+			Random rand = new Random();
+			int[] capacity = Instance.this.getAllCapacity();
+			for (int i = 0; i < Instance.this.numOfCustomer; i++) {
+				int randNum;
+				do {
+					randNum = Math.abs(rand.nextInt()) % Instance.this.numOfFacility;
+				} while (Instance.this.demands[i] > capacity[randNum]);
+				capacity[randNum] -= Instance.this.demands[i];
+				line[i] = randNum;
+			}
+			
 			this.cost = computeCost();
-			/*TODO something need*/
 		 }
 		 
 		 public boolean isValid() {

@@ -1,6 +1,7 @@
 package algorithm;
 
 import tools.Instance;
+import tools.Result;
 
 public class HillClimbing {
 	private Instance instance;
@@ -25,7 +26,8 @@ public class HillClimbing {
 		}
 	}
 	
-	public void run() {
+	public Result run() {
+		long startTime = System.currentTimeMillis();
 		boolean flag = true;
 		int n = 0;
 		
@@ -46,8 +48,10 @@ public class HillClimbing {
 			if (flag) {
 				this.solution = mins[minIndex];
 			}
-			System.out.println(n++ + ": " + solution.getCost()  + " -> " + solution.toString());
+			//System.out.println(n++ + ": " + solution.getCost()  + " -> " + solution.toString());
 		}
+		long endTime = System.currentTimeMillis();
+		return new Result(solution.getCost(), endTime - startTime, solution.toString());
 	}
 	
 	private Instance.Solution[] getMin() {
