@@ -12,14 +12,14 @@ public class Framework {
 	public static void main(String[] args) {
 		FileWriter hillResWriter = null, genResWriter = null, tableWriter = null;
 		try {
-			hillResWriter = new FileWriter("Result/HillClimbing.txt");
-			genResWriter = new FileWriter("Result/Genetic.txt");
-			tableWriter = new FileWriter("Result/table.txt");
+			hillResWriter = new FileWriter("Result/HillClimbing.dat", true);
+			genResWriter = new FileWriter("Result/Genetic.dat", true);
+			tableWriter = new FileWriter("Result/table.dat", true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		for (int i = 1; i < 72; i++) {
+		for (int i = 70; i < 72; i++) {
 			Genetic genetic = new Genetic("Instances/p" + i);
 			Result genRes = genetic.run();
 			
@@ -27,7 +27,7 @@ public class Framework {
 			Result hillRes = hillClimbing.run();
 			
 			Result temp;
-			for (int j = 0; j < 4; j++) {
+			for (int j = 0; j < 2; j++) {
 				Genetic tempGenetic = new Genetic("Instances/p" + i);
 				temp = tempGenetic.run();
 				if (temp.getCost() < genRes.getCost()) genRes = temp;
