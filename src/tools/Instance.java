@@ -54,6 +54,7 @@ public class Instance {
 		 public Solution() {
 			this.line = new int[Instance.this.numOfCustomer];
 			this.isDirty = false;
+			this.cost = computeCost();
 			/*TODO something need*/
 		 }
 		 
@@ -71,6 +72,15 @@ public class Instance {
 			 return true;
 		 }
 		 
+		 public int[] getData() {
+			 this.isDirty = true;
+			 return line;
+		 }
+		 
+		 public int getDataByPosition(int position) {
+			 return line[position];
+		 }
+		 
 		 public int getCost() {
 			 if (isDirty) {
 				 cost = computeCost();
@@ -79,7 +89,21 @@ public class Instance {
 		 }
 		 
 		 private int computeCost() {
+			 this.isDirty = false;
+			 int ret = 0;
 			 
+			 boolean[] isOpen = new boolean[Instance.this.numOfFacility];
+			 for (int i = 0; i < Instance.this.numOfFacility; i++) isOpen[i] = false;
+			 
+			 for (int i = 0; i < Instance.this.numOfCustomer; i++) {
+				 isOpen[line[i]] = true;
+				 ret += Instance.this.assignCost[line[i]][i];
+			 }
+			 for (int i = 0; i < Instance.this.numOfFacility; i++) {
+				 if (isOpen[i]) ret += Instance.this.facilities[i].getOpenCost();
+			 }
+			 
+			 return ret;
 		 }
 		 
 		 public Solution clone() {
