@@ -3,7 +3,6 @@ package tools;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Instance {
@@ -46,6 +45,23 @@ public class Instance {
 		}
 	}
 	
+	public int getNumOfFacility() {
+		return numOfFacility;
+	}
+
+
+	public int getNumOfCustomer() {
+		return numOfCustomer;
+	}
+	
+	public int getAssignCost(int facility, int customer) {
+		return assignCost[facility][customer];
+	}
+	
+	public int getOpenCost(int facility) {
+		return facilities[facility].getOpenCost();
+	}
+	
 	public class Solution {
 		private int[] line;
 		private int cost;
@@ -81,6 +97,15 @@ public class Instance {
 			 return line[position];
 		 }
 		 
+		 public void setDataByPosition(int position, int data) {
+			 if (data < 0 || data > Instance.this.numOfFacility) {
+				 System.out.println("ERROR: The data is invalid.(In function 'setDataByPosition')");
+			 } else {
+				 this.isDirty = true;
+				 this.line[position] = data;
+			 }
+		 }
+		 
 		 public int getCost() {
 			 if (isDirty) {
 				 cost = computeCost();
@@ -111,6 +136,16 @@ public class Instance {
 			 for (int i = 0; i < Instance.this.numOfCustomer; i++) {
 				 ret.line[i] = this.line[i];
 			 }
+			 return ret;
+		 }
+		 
+		 public String toString() {
+			 String ret = "";
+			 
+			 for (int i = 0; i < Instance.this.numOfCustomer; i++) {
+				 ret += this.line[i] + " ";
+			 }
+			 
 			 return ret;
 		 }
 	}
