@@ -168,6 +168,28 @@ public class Instance {
 			 
 			 return ret;
 		 }
+		 
+		 public String getResultStr() {
+			 String ret = "";
+			 
+			 ret += this.getCost() + "\n";
+			 
+			 boolean[] isOpen = new boolean[Instance.this.numOfFacility];
+			 for (int i = 0; i < Instance.this.numOfFacility; i++) {
+				 isOpen[i] = false;
+			 }
+			 
+			 for (int i = 0; i < Instance.this.numOfCustomer; i++) {
+				 isOpen[line[i]] = true;
+			 }
+			 
+			 for (int i = 0; i < Instance.this.numOfFacility; i++) {
+				 ret += (isOpen[i] ? "1 " : "0 ");
+			 }
+			 ret += "\n" + this.toString() + "\n";
+			 
+			 return ret;
+		 }
 	}
 	
 	private class Facility {

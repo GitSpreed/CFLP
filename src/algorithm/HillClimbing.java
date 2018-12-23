@@ -51,7 +51,7 @@ public class HillClimbing {
 			//System.out.println(n++ + ": " + solution.getCost()  + " -> " + solution.toString());
 		}
 		long endTime = System.currentTimeMillis();
-		return new Result(solution.getCost(), endTime - startTime, solution.toString());
+		return new Result(solution.getCost(), endTime - startTime, solution.getResultStr());
 	}
 	
 	private Instance.Solution[] getMin() {

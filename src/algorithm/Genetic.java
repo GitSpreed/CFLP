@@ -91,7 +91,7 @@ public class Genetic {
 			//System.out.println(generation + ": " + population[0].getCost() + " -> " + population[0].toString());
 		}
 		long endTime = System.currentTimeMillis();
-		return new Result(population[0].getCost(), endTime - startTime, population[0].toString());
+		return new Result(population[0].getCost(), endTime - startTime, population[0].getResultStr());
 	}
 	
 	public static void main(String[] args) {
